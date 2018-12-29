@@ -1863,7 +1863,7 @@ public class <name>ObjectHashMap\<V> implements Mutable<name>ObjectMap\<V>, Exte
     public \<NK, NV> MutableBiMap\<NK, NV> toBiMap(Function\<? super V, ? extends NK> keyFunction, Function\<? super V, ? extends NV> valueFunction)
     {
         MutableBiMap\<NK, NV> biMap = BiMaps.mutable.empty();
-        this.forEach(new BiMapCollectProcedure<>(biMap, keyFunction, valueFunction));
+        this.forEach(new BiMapCollectProcedure\<>(biMap, keyFunction, valueFunction));
         return biMap;
     }
 
