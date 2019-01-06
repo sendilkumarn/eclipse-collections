@@ -65,13 +65,13 @@ import org.eclipse.collections.api.tuple.Pair;
 import org.eclipse.collections.api.tuple.Twin;
 import org.eclipse.collections.impl.bag.mutable.HashBag;
 import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
-import org.eclipse.collections.impl.bimap.mutable.HashBiMap;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.block.factory.Predicates2;
 import org.eclipse.collections.impl.block.factory.PrimitiveFunctions;
 import org.eclipse.collections.impl.block.procedure.BiMapCollectProcedure;
 import org.eclipse.collections.impl.block.procedure.MutatingAggregationProcedure;
 import org.eclipse.collections.impl.block.procedure.NonMutatingAggregationProcedure;
+import org.eclipse.collections.impl.factory.BiMaps;
 import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.map.mutable.UnifiedMap;
 import org.eclipse.collections.impl.map.mutable.primitive.ObjectDoubleHashMap;
@@ -839,9 +839,9 @@ public abstract class AbstractCollectionAdapter<T>
             Function<? super T, ? extends K> keyFunction,
             Function<? super T, ? extends V> valueFunction)
     {
-        HashBiMap<K, V> bimap = HashBiMap.newMap();
-        Iterate.forEach(this, new BiMapCollectProcedure<>(bimap, keyFunction, valueFunction));
-        return bimap;
+        MutableBiMap<K, V> biMap = BiMaps.mutable.empty();
+        Iterate.forEach(this.getDelegate(), new BiMapCollectProcedure<>(biMap, keyFunction, valueFunction));
+        return biMap;
     }
 
     @Override

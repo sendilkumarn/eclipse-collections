@@ -39,9 +39,14 @@ public final class BiMapCollectProcedure<T, K, V> implements Procedure<T>
         K key = this.keyFunction.valueOf(object);
         V value = this.valueFunction.valueOf(object);
 
-        if (this.biMap.containsKey(key) || this.biMap.inverse().containsKey(value))
+        if (this.biMap.containsKey(key))
         {
-            throw new IllegalArgumentException("The Key " + key + " and value " + value + " is already present.");
+            throw new IllegalArgumentException("Key " + key + " already exists in map!");
+        }
+
+        if (this.biMap.inverse().containsKey(value))
+        {
+            throw new IllegalArgumentException("Value " + value + " already exists in map!");
         }
 
         this.biMap.put(key, value);

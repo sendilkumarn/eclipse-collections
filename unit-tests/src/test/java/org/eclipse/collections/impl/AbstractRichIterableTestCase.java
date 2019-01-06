@@ -40,7 +40,6 @@ import org.eclipse.collections.api.ShortIterable;
 import org.eclipse.collections.api.bag.Bag;
 import org.eclipse.collections.api.bag.MutableBag;
 import org.eclipse.collections.api.bag.sorted.MutableSortedBag;
-import org.eclipse.collections.api.bimap.MutableBiMap;
 import org.eclipse.collections.api.block.function.Function;
 import org.eclipse.collections.api.block.function.Function0;
 import org.eclipse.collections.api.block.procedure.Procedure;
@@ -52,6 +51,7 @@ import org.eclipse.collections.api.collection.primitive.MutableFloatCollection;
 import org.eclipse.collections.api.collection.primitive.MutableIntCollection;
 import org.eclipse.collections.api.collection.primitive.MutableLongCollection;
 import org.eclipse.collections.api.collection.primitive.MutableShortCollection;
+import org.eclipse.collections.api.factory.Maps;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.map.MapIterable;
 import org.eclipse.collections.api.map.MutableMap;
@@ -1369,29 +1369,20 @@ public abstract class AbstractRichIterableTestCase
     public void toBiMap()
     {
         RichIterable<Integer> integers = this.newWith(1, 2, 3);
-        MutableBiMap<String, String> biMap = integers.toBiMap(Object::toString, Object::toString);
-        Assert.assertEquals(UnifiedMap.newWithKeysValues("1", "1", "2", "2", "3", "3"), biMap);
-    }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void toBiMapWithDuplicateKeys()
-    {
-        RichIterable<Integer> integers = this.newWith(1, 2, 3);
-        integers.toBiMap(i -> "Constant Key", Objects::toString);
-    }
+        Assert.assertEquals(
+                Maps.mutable.with("1", "1", "2", "2", "3", "3"),
+                integers.toBiMap(Object::toString, Object::toString));
 
-    @Test(expected = IllegalArgumentException.class)
-    public void toBiMapWithDuplicateValues()
-    {
-        RichIterable<Integer> integers = this.newWith(1, 2, 3);
-        integers.toBiMap(Object::toString, i -> "Constant Value");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void toBiMapWithDuplicateKeysAndValues()
-    {
-        RichIterable<Integer> integers = this.newWith(1, 2, 3);
-        integers.toBiMap(i -> "Constant Key", i -> "Constant Value");
+        Verify.assertThrows(
+                IllegalArgumentException.class,
+                () -> integers.toBiMap(i -> "Constant Key", Objects::toString));
+        Verify.assertThrows(
+                IllegalArgumentException.class,
+                () -> integers.toBiMap(Object::toString, i -> "Constant Value"));
+        Verify.assertThrows(
+                IllegalArgumentException.class,
+                () -> integers.toBiMap(i -> "Constant Key", i -> "Constant Value"));
     }
 
     @Test

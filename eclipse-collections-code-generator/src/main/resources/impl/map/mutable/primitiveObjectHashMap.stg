@@ -128,15 +128,14 @@ import org.eclipse.collections.impl.bag.mutable.primitive.IntHashBag;
 import org.eclipse.collections.impl.bag.mutable.primitive.LongHashBag;
 import org.eclipse.collections.impl.bag.mutable.primitive.ShortHashBag;
 import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
-import org.eclipse.collections.impl.bimap.mutable.HashBiMap;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.block.factory.Functions;
 import org.eclipse.collections.impl.block.factory.Functions0;
 import org.eclipse.collections.impl.block.factory.Predicates;
 import org.eclipse.collections.impl.block.factory.PrimitiveFunctions;
 import org.eclipse.collections.impl.block.factory.Procedures2;
-import org.eclipse.collections.impl.block.procedure.MapCollectProcedure;
 import org.eclipse.collections.impl.block.procedure.BiMapCollectProcedure;
+import org.eclipse.collections.impl.block.procedure.MapCollectProcedure;
 import org.eclipse.collections.impl.block.procedure.MutatingAggregationProcedure;
 import org.eclipse.collections.impl.block.procedure.NonMutatingAggregationProcedure;
 import org.eclipse.collections.impl.block.procedure.PartitionProcedure;
@@ -150,6 +149,7 @@ import org.eclipse.collections.impl.block.procedure.primitive.CollectIntProcedur
 import org.eclipse.collections.impl.block.procedure.primitive.CollectLongProcedure;
 import org.eclipse.collections.impl.block.procedure.primitive.CollectShortProcedure;
 import org.eclipse.collections.impl.factory.Bags;
+import org.eclipse.collections.impl.factory.BiMaps;
 import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.factory.Sets;
 import org.eclipse.collections.impl.factory.primitive.<name>Sets;
@@ -1862,8 +1862,8 @@ public class <name>ObjectHashMap\<V> implements Mutable<name>ObjectMap\<V>, Exte
     @Override
     public \<NK, NV> MutableBiMap\<NK, NV> toBiMap(Function\<? super V, ? extends NK> keyFunction, Function\<? super V, ? extends NV> valueFunction)
     {
-        HashBiMap\<NK, NV> biMap = HashBiMap.newMap();
-        this.forEach(new BiMapCollectProcedure\<V, NK, NV>(biMap, keyFunction, valueFunction));
+        MutableBiMap\<NK, NV> biMap = BiMaps.mutable.empty();
+        this.forEach(new BiMapCollectProcedure<>(biMap, keyFunction, valueFunction));
         return biMap;
     }
 
