@@ -3,11 +3,7 @@
 
 name: Eclipse Collections - Unit tests
 
-on:
-  push:
-    branches: [ * ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
   project-build:
