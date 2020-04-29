@@ -12,8 +12,13 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         java-version: [8, 11, 14]
+        experimental: [false]
+        include:
+          - java-version: 15-ea
+            experimental: true
 
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
 
     env:
       JAVA_VERSION: ${{ matrix.java-version }}
