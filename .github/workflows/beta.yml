@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        java-version: 15-ea
+        java-version: [15-ea]
 
     runs-on: ${{ matrix.os }}
     continue-on-error: true
